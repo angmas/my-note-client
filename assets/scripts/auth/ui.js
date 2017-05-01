@@ -3,6 +3,7 @@ const store = require('../store')
 
 const signUpSuccess = (data) => {
   console.log('signUpSuccess ran: ', data)
+  $('.container').empty()
 }
 
 const signUpFailure = (error) => {

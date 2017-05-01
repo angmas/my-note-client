@@ -6,9 +6,10 @@ const api = require('./api')
 const ui = require('./ui')
 
 const onSignUp = function (event) {
+  event.preventDefault()
   console.log('I am in onSignUp')
   const data = getFormFields(this)
-  event.preventDefault()
+
   api.signUp(data)
     .then(ui.signUpSuccess)
     .catch(ui.signUpFailure)
@@ -41,7 +42,7 @@ const onChangePassword = function (event) {
 }
 const addHandlers = () => {
   console.log('I am in auth/addHandlers')
-  $('#sign-up-btn').on('click', onSignUp)
+  $('#sign-up').on('submit', onSignUp)
   $('#sign-in').on('submit', onSignIn)
   $('#sign-out').on('submit', onSignOut)
   $('#change-password').on('submit', onChangePassword)

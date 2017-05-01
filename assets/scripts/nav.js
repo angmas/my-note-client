@@ -3,13 +3,14 @@ const showLandingPageTemplate = require('./templates/landing-page.handlebars')
 
 const signUpModal = require('./templates/sign-up-modal.handlebars')
 
-// const authEvents = require('./auth/events.js')
+const authEvents = require('./auth/events.js')
 
 let firstLoad = true
 
 const showSignUpModal = function () {
   console.log('I am in signUpModal')
   $('.container').append(signUpModal)
+  authEvents.addHandlers()
 }
 const showLandingPage = function () {
   $('.container').append(showLandingPageTemplate)
