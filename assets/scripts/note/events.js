@@ -8,11 +8,14 @@ const ui = require('./ui')
 const onCreateNote = function (event) {
   event.preventDefault()
   console.log('I am in onCreateNote')
+  // set the value of favorite so that the function getFormFields can parse it correctly
+  $('#favorite').val($('#favorite').prop('checked'))
   const data = getFormFields(this)
+  console.log('onCreateNote data: ', data)
 
   api.createNote(data)
     .then(ui.createNoteSuccess)
-    .catch(ui.createNoteFailure)
+    .catch(ui.createFailure)
 }
 
 const onSignIn = function (event) {
