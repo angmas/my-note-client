@@ -1,16 +1,12 @@
 
-<ul>
+<div>
+
 {{#each notes as |note|}}
-
-  <!-- {{> partial}}
-  Don't uncomment yet -->
-
- <!-- Developers, why are we using data-id and not just id? -->
  <li class=note-container>
-  <h1 data-id="{{note.id}}"> <small>{{note.id}} Title: {{note.title}}</small></h1>
+  <h2 data-id="{{note.id}}"> {{note.note_title}}</h2>
   <div>
-    {{#if note.description}}
-      {{note.description}}
+    {{#if note.note_detail}}
+      {{note.note_detail}}
     {{else}}
       No description.
     {{/if}}
@@ -19,4 +15,4 @@
 </li>
 
 {{/each}}
-</ul>
+</div>
