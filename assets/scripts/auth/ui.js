@@ -1,9 +1,11 @@
 'use strict'
 const store = require('../store')
 
+const navPages = require('../navPages')
+
 const signUpSuccess = (data) => {
   console.log('signUpSuccess ran: ', data)
-  $('.container').empty()
+  navPages.showHomePage()
 }
 
 const signUpFailure = (error) => {
