@@ -1,11 +1,14 @@
 'use strict'
 const store = require('../store')
+const api = require('./api')
 
 const navPages = require('../navPages')
 
 const signUpSuccess = (data) => {
   console.log('signUpSuccess ran: ', data)
-  navPages.showHomePage()
+  api.signIn(store.autoSignIn)
+    .then(signInSuccess)
+    .catch(signInFailure)
 }
 
 const signUpFailure = (error) => {
@@ -13,8 +16,10 @@ const signUpFailure = (error) => {
 }
 
 const signInSuccess = (data) => {
+  delete store['autoSignIn']
   store.user = data.user
   console.log('signInSuccess ran: ', store)
+  navPages.showHomePage()
 }
 
 const signInFailure = (error) => {

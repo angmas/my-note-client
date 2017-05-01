@@ -1,5 +1,5 @@
 'use strict'
-
+const store = require('../store')
 const getFormFields = require(`../../../lib/get-form-fields`)
 
 const api = require('./api')
@@ -9,6 +9,7 @@ const onSignUp = function (event) {
   event.preventDefault()
   console.log('I am in onSignUp')
   const data = getFormFields(this)
+  store.autoSignIn = data
 
   api.signUp(data)
     .then(ui.signUpSuccess)
