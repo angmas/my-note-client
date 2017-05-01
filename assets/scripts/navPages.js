@@ -1,13 +1,15 @@
 'use strict'
-
+const store = require('./store')
 const showHomeTemplate = require('./templates/home.handlebars')
 
-const showHomePage = function () {
-  // const options = {show: false}
+const clearModal = function () {
   $('.modal').modal('hide')
   $('.modal').modal('backdrop')
   $('.container').empty()
-  $('.container').append(showHomeTemplate)
+}
+const showHomePage = function () {
+  clearModal()
+  $('.container').append(showHomeTemplate({ email: store.user.email }))
   // addHandlers()
 }
 
