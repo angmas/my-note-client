@@ -1,18 +1,15 @@
 'use strict'
 const store = require('../store')
-const api = require('./api')
+// const api = require('./api')
 
 const navPages = require('../navPages')
 
-const signUpSuccess = (data) => {
-  console.log('signUpSuccess ran: ', data)
-  api.signIn(store.autoSignIn)
-    .then(signInSuccess)
-    .catch(signInFailure)
+const createNoteSuccess = (data) => {
+  console.log('createNoteSuccess ran: ', data)
 }
 
-const signUpFailure = (error) => {
-  console.error('signUpFailure ran: ', error)
+const createNoteFailure = (error) => {
+  console.error('createNoteFailure ran: ', error)
 }
 
 const signInSuccess = (data) => {
@@ -43,8 +40,8 @@ const changePasswordFailure = (error) => {
 }
 
 module.exports = {
-  signUpSuccess,
-  signUpFailure,
+  createNoteSuccess,
+  createNoteFailure,
   signInSuccess,
   signInFailure,
   signOutSuccess,

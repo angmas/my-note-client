@@ -2,10 +2,13 @@
 const config = require('../config')
 const store = require('../store')
 
-const signUp = (data) => {
+const createNote = (data) => {
   return $.ajax({
-    url: config.apiOrigin + '/sign-up',
+    url: config.apiOrigin + '/notes',
     method: 'POST',
+    headers: {
+      Authorization: 'Token token=' + store.user.token
+    },
     data
   })
 }
@@ -40,7 +43,7 @@ const changePassword = (data) => {
 }
 
 module.exports = {
-  signUp,
+  createNote,
   signIn,
   signOut,
   changePassword
