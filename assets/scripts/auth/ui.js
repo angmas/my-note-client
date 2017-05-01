@@ -1,8 +1,10 @@
 'use strict'
 const store = require('../store')
 const api = require('./api')
+const notesApi = require('../note/api')
+const notesUi = require('../note/ui')
 
-const navPages = require('../navPages')
+// const navPages = require('../navPages')
 
 const signUpSuccess = (data) => {
   console.log('signUpSuccess ran: ', data)
@@ -19,7 +21,9 @@ const signInSuccess = (data) => {
   delete store['autoSignIn']
   store.user = data.user
   console.log('signInSuccess ran: ', store)
-  navPages.showHomePage()
+  notesApi.showNotes()
+    .then(notesUi.showNotesSuccess)
+    .catch(notesUi.showNotesFailure)
 }
 
 const signInFailure = (error) => {
