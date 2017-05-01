@@ -13,8 +13,6 @@ const signUpFailure = (error) => {
 }
 
 const signInSuccess = (data) => {
-  console.log('signInSuccess ran: ', data)
-  console.log('signInSuccess ran: ', store)
   store.user = data.user
   console.log('signInSuccess ran: ', store)
 }
