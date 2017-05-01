@@ -1,5 +1,6 @@
 'use strict'
 const store = require('./store')
+const noteEvents = require('./note/events')
 const showHomeTemplate = require('./templates/home.handlebars')
 const showNoteCreateModalTemplate = require('./templates/note-create-modal.handlebars')
 
@@ -17,7 +18,7 @@ const showHomePage = function () {
 
 const showNoteCreateModal = function () {
   $('.container').append(showNoteCreateModalTemplate)
-  // addHandlers()
+  noteEvents.addHandlers()
 }
 
 const addHandlers = function () {

@@ -5,15 +5,14 @@ const getFormFields = require(`../../../lib/get-form-fields`)
 const api = require('./api')
 const ui = require('./ui')
 
-const onSignUp = function (event) {
+const onCreateNote = function (event) {
   event.preventDefault()
-  console.log('I am in onSignUp')
+  console.log('I am in onCreateNote')
   const data = getFormFields(this)
-  store.autoSignIn = data
 
-  api.signUp(data)
-    .then(ui.signUpSuccess)
-    .catch(ui.signUpFailure)
+  api.createNote(data)
+    .then(ui.createNoteSuccess)
+    .catch(ui.createNoteFailure)
 }
 
 const onSignIn = function (event) {
@@ -42,8 +41,8 @@ const onChangePassword = function (event) {
     .catch(ui.changePasswordFailure)
 }
 const addHandlers = () => {
-  console.log('I am in auth/addHandlers')
-  $('#sign-up').on('submit', onSignUp)
+  console.log('I am in note/addHandlers')
+  $('#note-create').on('submit', onCreateNote)
   $('#sign-in').on('submit', onSignIn)
   $('#sign-out').on('submit', onSignOut)
   $('#change-password').on('submit', onChangePassword)
