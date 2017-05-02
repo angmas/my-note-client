@@ -9,9 +9,9 @@
     <i class="fa fa-pencil" aria-hidden="true"></i></button>
 
     {{#if note.favorite}}
-      <strong>{{note.note_title}}</strong>
+      <strong><span>{{note.note_title}}</span></strong>
     {{else}}
-      {{note.note_title}}
+    <span>{{note.note_title}}</span>
     {{/if}}
   </li>
   {{/each}}
