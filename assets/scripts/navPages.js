@@ -59,25 +59,20 @@ const passDataToDelConfModal = function () {
   $('#confirm-delete-modal').attr('data-id', dataId)
 }
 
-const getNoteItem = function (array, number) {
-  let item = {}
-  for (let i = 0; i < array.length; i++) {
-    if (array[i].id === parseInt(number)) {
-      item = array[i]
-    }
-  }
-  return item
-}
 const passNoteToEditModal = function () {
   const dataId = getDataId(this)
-  console.log('I am in passNoteToEditModal dataId: ', dataId)
   // find the exact note item from store
-  const noteItem = getNoteItem(store.notes, dataId)
-
-  console.log('passNoteToEditModal noteItem: ', noteItem)
-
+  const noteItem = store.notes.find(e => e.id === parseInt(dataId))
+  // set data-id on form so it can get passed on Save
   $('#note-edit').attr('data-id', dataId)
+  // since the fieldset is appended, it needs to be cleared out so multiple field sets are not appended
+  $('fieldset').empty()
+  $('fieldset').append(noteEditFields({note: noteItem}))
+
+  // manually set checkbox. checkboxes suck
+  $('input[type="checkbox"]').prop('checked', noteItem.favorite)
 }
+
 const addHandlers = function () {
   $('.btn-remove-class').on('click', passDataToDelConfModal)
   $('.btn-edit-class').on('click', passNoteToEditModal)
