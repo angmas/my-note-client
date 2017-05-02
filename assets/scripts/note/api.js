@@ -3,6 +3,7 @@ const config = require('../config')
 const store = require('../store')
 
 const createNote = (data) => {
+  console.log('Iam in createNote api.js')
   return $.ajax({
     url: config.apiOrigin + '/notes',
     method: 'POST',
@@ -23,9 +24,10 @@ const showNotes = () => {
     }
   })
 }
-const signOut = () => {
+const destroyNote = (data) => {
+  console.log('I am in destroyNote')
   return $.ajax({
-    url: config.apiOrigin + '/sign-out/' + store.user.id,
+    url: config.apiOrigin + '/notes/' + data,
     method: 'DELETE',
     headers: {
       Authorization: 'Token token=' + store.user.token
@@ -48,6 +50,6 @@ const changePassword = (data) => {
 module.exports = {
   createNote,
   showNotes,
-  signOut,
+  destroyNote,
   changePassword
 }

@@ -6,7 +6,7 @@ const nav = require('./nav')
 
 $(() => {
   setAPIOrigin(location, config)
-  nav.doFirstLoad()
+  nav.showLandingPage()
 })
 
 // use require with a reference to bundle the file and use it in this file
