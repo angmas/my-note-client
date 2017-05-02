@@ -2,7 +2,7 @@
 const store = require('./store')
 const noteEvents = require('./note/events')
 const showHomeTemplate = require('./templates/home.handlebars')
-const showNoteCreateModalTemplate = require('./templates/note-create-modal.handlebars')
+const oneNoteTemplate = require('./templates/note-listing.handlebars')
 
 const clearModal = function () {
   $('.modal').modal('hide')
@@ -14,20 +14,15 @@ const showHomePage = function () {
   clearModal()
   $('.container').append(showHomeTemplate({ email: store.user.email,
     notes: store.notes }))
-  addHandlers()
-}
-
-const showNoteCreateModal = function () {
-  $('.container').append(showNoteCreateModalTemplate)
   noteEvents.addHandlers()
 }
-
-const addHandlers = function () {
-  console.log('am in navPages/addHandlers')
-  $('#note-create-btn').on('click', showNoteCreateModal)
+const addNoteToView = function () {
+  clearModal()
+  $('.container').append(oneNoteTemplate({ notes: store.note }))
 }
 
 module.exports = {
   showHomePage,
-  showNoteCreateModal
+  addNoteToView,
+  clearModal
 }
