@@ -12,7 +12,8 @@ const clearModal = function () {
 }
 const showHomePage = function () {
   clearModal()
-  $('.container').append(showHomeTemplate({ email: store.user.email }))
+  $('.container').append(showHomeTemplate({ email: store.user.email,
+    notes: store.notes }))
   addHandlers()
 }
 

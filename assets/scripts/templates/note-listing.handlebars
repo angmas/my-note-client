@@ -1,0 +1,24 @@
+
+<div>
+  <ul>Note Titles</ul>
+  {{#each notes as |note|}}
+
+  {{#if note.favorite}}
+  <li data-id="{{note.id}}">
+    <button class="btn btn-primary btn-remove-class btn-xs">
+      <i class="fa fa-trash-o" aria-hidden="true"></i></button>
+    <button class="btn btn-primary btn-edit-class btn-xs">
+    <i class="fa fa-pencil" aria-hidden="true"></i></button>
+        <strong>{{note.note_title}}</strong></li>
+  </li>
+  {{else}}
+  <li data-id="{{note.id}}">
+    <button class="btn btn-primary btn-edit-class btn-xs">
+<i class="fa fa-trash-o" aria-hidden="true"></i></button>
+<button class="btn btn-primary btn-remove-class btn-xs">
+<i class="fa fa-pencil" aria-hidden="true"></i></button>
+    {{note.note_title}}</li>
+  {{/if}}
+  {{/each}}
+  </ul>
+</div>

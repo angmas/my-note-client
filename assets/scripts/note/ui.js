@@ -12,15 +12,14 @@ const createNoteFailure = (error) => {
   console.error('createNoteFailure ran: ', error)
 }
 
-const signInSuccess = (data) => {
-  delete store['autoSignIn']
-  store.user = data.user
-  console.log('signInSuccess ran: ', store)
+const showNotesSuccess = (data) => {
+  store.notes = data.user.notes
+  console.log('showNotesSuccess ran: ', store)
   navPages.showHomePage()
 }
 
-const signInFailure = (error) => {
-  console.error('signInFailure ran:', error)
+const showNotesFailure = (error) => {
+  console.error('showNotesFailure ran:', error)
 }
 const signOutSuccess = () => {
   console.log('signOutSuccess ran')
@@ -42,8 +41,8 @@ const changePasswordFailure = (error) => {
 module.exports = {
   createNoteSuccess,
   createNoteFailure,
-  signInSuccess,
-  signInFailure,
+  showNotesSuccess,
+  showNotesFailure,
   signOutSuccess,
   signOutFailure,
   changePasswordSuccess,

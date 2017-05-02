@@ -13,11 +13,14 @@ const createNote = (data) => {
   })
 }
 
-const signIn = (data) => {
+const showNotes = () => {
+  console.log('I am in showNotes')
   return $.ajax({
-    url: config.apiOrigin + '/sign-in',
-    method: 'POST',
-    data
+    url: config.apiOrigin + '/users/' + store.user.id,
+    method: 'GET',
+    headers: {
+      Authorization: 'Token token=' + store.user.token
+    }
   })
 }
 const signOut = () => {
@@ -44,7 +47,7 @@ const changePassword = (data) => {
 
 module.exports = {
   createNote,
-  signIn,
+  showNotes,
   signOut,
   changePassword
 }
