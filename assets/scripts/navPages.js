@@ -3,6 +3,7 @@ const store = require('./store')
 const noteEvents = require('./note/events')
 const showHomeTemplate = require('./templates/home.handlebars')
 const oneNoteTemplate = require('./templates/note-listing.handlebars')
+const noteEditFields = require('./templates/note-partial.handlebars')
 
 const clearModal = function () {
   $('.modal').modal('hide')
@@ -49,7 +50,7 @@ const parseTitle = function (element) {
   // console.log('In passTitleToModal strong.length:', strong.length)
   // console.log('In passTitleModal title: ', title)
 }
-const passDataToModal = function () {
+const passDataToDelConfModal = function () {
   const title = parseTitle(this)
   const dataId = getDataId(this)
   console.log('I am in passDataModal title: ', title)
@@ -57,8 +58,29 @@ const passDataToModal = function () {
   $('.modal-body #delete-title').text(title)
   $('#confirm-delete-modal').attr('data-id', dataId)
 }
+
+const getNoteItem = function (array, number) {
+  let item = {}
+  for (let i = 0; i < array.length; i++) {
+    if (array[i].id === parseInt(number)) {
+      item = array[i]
+    }
+  }
+  return item
+}
+const passNoteToEditModal = function () {
+  const dataId = getDataId(this)
+  console.log('I am in passNoteToEditModal dataId: ', dataId)
+  // find the exact note item from store
+  const noteItem = getNoteItem(store.notes, dataId)
+
+  console.log('passNoteToEditModal noteItem: ', noteItem)
+
+  $('#note-edit').attr('data-id', dataId)
+}
 const addHandlers = function () {
-  $('.btn-remove-class').on('click', passDataToModal)
+  $('.btn-remove-class').on('click', passDataToDelConfModal)
+  $('.btn-edit-class').on('click', passNoteToEditModal)
 }
 
 module.exports = {
