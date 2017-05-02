@@ -43,10 +43,25 @@ const onChangePassword = function (event) {
     .then(ui.changePasswordSuccess)
     .catch(ui.changePasswordFailure)
 }
+const getDataId = function (element) {
+  const modal = $(element).closest('.modal')
+  console.log('I am in getDataId element: ', modal)
+  const dataId = $(modal).attr('data-id')
+  console.log('Iam in getDataId dataId: ', dataId)
+  return dataId
+}
+const onDestroyNote = function () {
+  console.log('I am in onDestroyNote this: ', this)
+  const dataId = getDataId(this)
+  console.log('I am in onDestroyNote dataId: ', dataId)
+  api.destroyNote(dataId)
+    .then(ui.destroyNoteSuccess)
+    .catch(ui.destroyNoteFailure)
+}
 const addHandlers = () => {
   console.log('I am in note/addHandlers')
   $('#note-create').on('submit', onCreateNote)
-  $('#sign-in').on('submit', onSignIn)
+  $('.btn-delete-confirmation').on('click', onDestroyNote)
   $('#sign-out').on('submit', onSignOut)
   $('#change-password').on('submit', onChangePassword)
 }
