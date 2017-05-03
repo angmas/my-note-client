@@ -49,15 +49,22 @@ const onSignOut = function (event) {
   // const data = getFormFields(this)
   event.preventDefault()
   console.log('onSignOut ran!')
-  authUi.signOut()
-    .then(onShowLandingPage)
+  authApi.signOut()
+    .then(onSignOutSuccess)
     .catch(authUi.signOutFailure)
+}
+
+const onSignOutSuccess = function () {
+  delete store.user
+  delete store.notes
+  console.log('I am in onSignOutSuccess store: ')
+  onShowLandingPage()
 }
 const onChangePassword = function (event) {
   const data = getFormFields(this)
   event.preventDefault()
   console.log('onChangePassword ran!')
-  authUi.changePassword(data)
+  authApi.changePassword(data)
     .then(authUi.changePasswordSuccess)
     .catch(authUi.changePasswordFailure)
 }
@@ -122,6 +129,7 @@ const addHomeHandlers = () => {
   $('#note-edit').on('submit', onUpdateNote)
   $('#sign-out').on('submit', onSignOut)
   $('#change-password').on('submit', onChangePassword)
+  $('.sign-out-nav').on('click', onSignOut)
 }
 
 const addLandingPageHandlers = () => {
