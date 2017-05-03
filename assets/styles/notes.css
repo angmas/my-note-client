@@ -1,3 +1,19 @@
+.note-list-container {
+  width: 600px;
+  margin: auto;
+}
+
 ul {
   list-style: none;
+}
+
+.note {
+  margin-bottom: 5px;
+  font-size: 200%;
+  background-color: white;
+  padding: 0 10px;
+}
+
+input {
+  margin-left: 5px;
 }
