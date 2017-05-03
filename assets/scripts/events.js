@@ -65,7 +65,7 @@ const onChangePassword = function (event) {
   event.preventDefault()
   console.log('onChangePassword ran!')
   authApi.changePassword(data)
-    .then(authUi.changePasswordSuccess)
+    .then(navPages.clearModal)
     .catch(authUi.changePasswordFailure)
 }
 
