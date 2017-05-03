@@ -35,10 +35,10 @@ const destroyNote = (data) => {
   })
 }
 
-const changePassword = (data) => {
-  console.log('changePassword ran - store is: ', store)
+const updateNote = (data, noteId) => {
+  console.log('updateNote ran - store is: ', store)
   return $.ajax({
-    url: config.apiOrigin + '/change-password/' + store.user.id,
+    url: config.apiOrigin + '/notes/' + noteId,
     method: 'PATCH',
     headers: {
       Authorization: 'Token token=' + store.user.token
@@ -51,5 +51,5 @@ module.exports = {
   createNote,
   showNotes,
   destroyNote,
-  changePassword
+  updateNote
 }

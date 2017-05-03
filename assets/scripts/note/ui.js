@@ -21,13 +21,13 @@ const showNotesSuccess = (data) => {
 const showNotesFailure = (error) => {
   console.error('showNotesFailure ran:', error)
 }
-const signOutSuccess = () => {
-  console.log('signOutSuccess ran')
+const updateNoteSuccess = () => {
+  console.log('updateNoteSuccess ran')
   store.user = null
 }
 
-const signOutFailure = (error) => {
-  console.error('signOutFailure ran:', error)
+const updateNoteFailure = (error) => {
+  console.error('updateNoteFailure ran:', error)
 }
 
 const changePasswordSuccess = () => {
@@ -43,8 +43,8 @@ module.exports = {
   createNoteFailure,
   showNotesSuccess,
   showNotesFailure,
-  signOutSuccess,
-  signOutFailure,
+  updateNoteSuccess,
+  updateNoteFailure,
   changePasswordSuccess,
   changePasswordFailure
 }

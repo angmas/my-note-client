@@ -15,10 +15,13 @@ const onCreateNote = function (event) {
 
   api.createNote(data)
     .then(ui.createNoteSuccess)
-    .catch(ui.createFailure)
+    .catch(ui.createNoteFailure)
 }
 
 const onUpdateNote = function (event) {
+  // get data-id value from form
+  const dataId = $('#note-edit').attr('data-id')
+  console.log('onUpdateNote dataId: ', dataId)
   // set the value of favorite so that the function getFormFields can parse it correctly
   $('input[type="checkbox"]').val($('input[type="checkbox"]').prop('checked'))
   const check = $('#favorite').val()
@@ -26,9 +29,9 @@ const onUpdateNote = function (event) {
   const data = getFormFields(this)
   event.preventDefault()
   console.log('onUpdateNote ran! data is: ', data)
-  // api.signIn(data)
-  //   .then(ui.signInSuccess)
-  //   .catch(ui.signInFailure)
+  api.updateNote(data, dataId)
+    .then(ui.onUpdateNoteSuccess)
+    .catch(ui.onUpdateNoteFailure)
 }
 
 const onSignOut = function (event) {
