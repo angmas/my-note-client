@@ -15,6 +15,7 @@ const clearModal = function () {
   $('.modal').modal('hide')
   $('form').trigger('reset')
   $('.modal').modal('backdrop')
+  $('body').removeClass('modal-open');
 }
 
 const getDataId = function (element) {
@@ -71,7 +72,8 @@ const addHomePageHandlers = function () {
   $('.btn-remove-class').on('click', passDataToDelConfModal)
   $('.btn-edit-class').on('click', passNoteToEditModal)
 }
-const showHomePage = function (store) {
+const showHomePage = function () {
+  console.log('I am in showHomePage store: ', store)
   clearModal()
   $('.container').empty()
   $('.container').append(showHomeTemplate({ email: store.user.email,

@@ -76,6 +76,7 @@ const onShowNotes = function () {
 const onShowNotesSuccess = function (data) {
   store.notes = data.user.notes
   console.log('I am in onShowNotesSuccess store: ', store)
+  onShowHomePage()
 }
 const onDestroyNote = function () {
   console.log('I am in onDestroyNote this: ', this)
