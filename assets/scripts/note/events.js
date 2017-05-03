@@ -9,22 +9,29 @@ const onCreateNote = function (event) {
   event.preventDefault()
   console.log('I am in onCreateNote')
   // set the value of favorite so that the function getFormFields can parse it correctly
-  $('#favorite').val($('#favorite').prop('checked'))
+  $('input[type="checkbox"]').val($('input[type="checkbox"]').prop('checked'))
   const data = getFormFields(this)
   console.log('onCreateNote data: ', data)
 
   api.createNote(data)
     .then(ui.createNoteSuccess)
-    .catch(ui.createFailure)
+    .catch(ui.createNoteFailure)
 }
 
-const onSignIn = function (event) {
+const onUpdateNote = function (event) {
+  // get data-id value from form
+  const dataId = $('#note-edit').attr('data-id')
+  console.log('onUpdateNote dataId: ', dataId)
+  // set the value of favorite so that the function getFormFields can parse it correctly
+  $('input[type="checkbox"]').val($('input[type="checkbox"]').prop('checked'))
+  const check = $('#favorite').val()
+  console.log('value of favorite: ', check)
   const data = getFormFields(this)
   event.preventDefault()
-  console.log('sign-in ran!')
-  api.signIn(data)
-    .then(ui.signInSuccess)
-    .catch(ui.signInFailure)
+  console.log('onUpdateNote ran! data is: ', data)
+  api.updateNote(data, dataId)
+    .then(ui.onUpdateNoteSuccess)
+    .catch(ui.onUpdateNoteFailure)
 }
 
 const onSignOut = function (event) {
@@ -58,11 +65,13 @@ const onDestroyNote = function () {
     .then(ui.destroyNoteSuccess)
     .catch(ui.destroyNoteFailure)
 }
+
+
 const addHandlers = () => {
   console.log('I am in note/addHandlers')
   $('#note-create').on('submit', onCreateNote)
   $('.btn-delete-confirmation').on('click', onDestroyNote)
-  $('#sign-out').on('submit', onSignOut)
+  $('#note-edit').on('submit', onUpdateNote)
   $('#change-password').on('submit', onChangePassword)
 }
 
