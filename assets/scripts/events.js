@@ -10,11 +10,6 @@ const noteUi = require('./note/ui')
 
 const helper = require('./helper')
 
-// the following variables keeps track of first page load
-
-let firstLandingPage = true
-let firstHomePage = true
-
 const onSignUp = function (event) {
   event.preventDefault()
   console.log('I am in onSignUp')
@@ -86,12 +81,14 @@ const onDestroyNote = function () {
     .then(onShowNotes)
     .catch(noteUi.destroyNoteFailure)
 }
-
+const setCheckbox = function () {
+  $('input[type="checkbox"]').val($('input[type="checkbox"]').prop('checked'))
+}
 const onCreateNote = function (event) {
   event.preventDefault()
   console.log('I am in onCreateNote')
   // set the value of favorite so that the function getFormFields can parse it correctly
-  $('input[type="checkbox"]').val($('input[type="checkbox"]').prop('checked'))
+  setCheckbox()
   const data = getFormFields(this)
   console.log('onCreateNote data: ', data)
 
@@ -101,15 +98,17 @@ const onCreateNote = function (event) {
 }
 
 const onUpdateNote = function (event) {
+  event.preventDefault()
   // get data-id value from form
   const dataId = $('#note-edit').attr('data-id')
   console.log('onUpdateNote dataId: ', dataId)
   // set the value of favorite so that the function getFormFields can parse it correctly
-  $('input[type="checkbox"]').val($('input[type="checkbox"]').prop('checked'))
-  const check = $('#favorite').val()
-  console.log('value of favorite: ', check)
+  setCheckbox()
+  // $(checkbox).val($('checkbox').prop('checked'))
+  // const check = $(checkbox).val()
+  // console.log('value of favorite: ', check)
   const data = getFormFields(this)
-  event.preventDefault()
+
   console.log('onUpdateNote ran! data is: ', data)
   noteApi.updateNote(data, dataId)
     .then(onShowNotes)
@@ -133,19 +132,13 @@ const addLandingPageHandlers = () => {
 
 const onShowLandingPage = function () {
   navPages.showLandingPage()
-  if (firstLandingPage) {
-    addLandingPageHandlers()
-    firstLandingPage = false
-  }
+  addLandingPageHandlers()
 }
 
 const onShowHomePage = function (data) {
   helper.saveNotesData
   navPages.showHomePage()
-  if (firstHomePage) {
-    addHomeHandlers()
-    firstHomePage = false
-  }
+  addHomeHandlers()
 }
 
 module.exports = {

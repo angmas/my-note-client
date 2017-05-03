@@ -5,8 +5,6 @@ const showHomeTemplate = require('./templates/home.handlebars')
 const noteEditFields = require('./templates/note-partial.handlebars')
 const showLandingPageTemplate = require('./templates/landing-page.handlebars')
 
-let firstHomePageLoad = true
-
 const showLandingPage = function () {
   $('.container').empty()
   $('.container').append(showLandingPageTemplate)
@@ -15,7 +13,7 @@ const clearModal = function () {
   $('.modal').modal('hide')
   $('form').trigger('reset')
   $('.modal').modal('backdrop')
-  $('body').removeClass('modal-open');
+  $('body').removeClass('modal-open')
 }
 
 const getDataId = function (element) {
@@ -78,10 +76,7 @@ const showHomePage = function () {
   $('.container').empty()
   $('.container').append(showHomeTemplate({ email: store.user.email,
     notes: store.notes }))
-  if (firstHomePageLoad) {
-    addHomePageHandlers()
-    firstHomePageLoad = false
-  }
+  addHomePageHandlers()
 }
 
 module.exports = {
