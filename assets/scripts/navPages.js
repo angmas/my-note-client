@@ -8,8 +8,10 @@ const showLandingPageTemplate = require('./templates/landing-page.handlebars')
 const showLandingPage = function () {
   $('.container').empty()
   $('.container').append(showLandingPageTemplate)
+  addLandingPageHandlers()
 }
 const clearModal = function () {
+  console.log('iam in clearModal')
   $('.modal').modal('hide')
   $('form').trigger('reset')
   $('.modal').modal('backdrop')
@@ -65,11 +67,16 @@ const passNoteToEditModal = function () {
   // manually set checkbox. checkboxes suck
   $('input[type="checkbox"]').prop('checked', noteItem.favorite)
 }
-
+const resetModalForm = function () {
+  console.log('resetModalForm')
+  $('form').trigger('reset')
+}
 const addHomePageHandlers = function () {
   $('.btn-remove-class').on('click', passDataToDelConfModal)
   $('.btn-edit-class').on('click', passNoteToEditModal)
+  $('.modal').on('show.bs.modal', resetModalForm)
 }
+
 const showHomePage = function () {
   console.log('I am in showHomePage store: ', store)
   clearModal()
@@ -77,6 +84,10 @@ const showHomePage = function () {
   $('.container').append(showHomeTemplate({ email: store.user.email,
     notes: store.notes }))
   addHomePageHandlers()
+}
+
+const addLandingPageHandlers = function () {
+  $('.modal').on('show.bs.modal', resetModalForm)
 }
 
 module.exports = {
