@@ -1,8 +1,8 @@
 [![General Assembly Logo](https://camo.githubusercontent.com/1a91b05b8f4d44b5bbfb83abac2b0996d8e26c92/687474703a2f2f692e696d6775722e636f6d2f6b6538555354712e706e67)](https://generalassemb.ly/education/web-development-immersive)
 
-# My Note Client
+# My Note
 
-My Note Client is a note collection applicaton. Once a user signs up and
+My Note is a note collection applicaton. Once a user signs up and
 they are presented with a button to add a new note and a list of their existing
 notes (if they have any). The user is able to edit and delete their notes by
 clicking on the buttons to the left of the note title.
@@ -24,8 +24,8 @@ is in progress.
 -   [Font Awesome](http://fontawesome.io/)
 
 ## API Used
--   [My Note API README] (https://github.com/angmas/my-note-api/blob/master/README.md)
--   [My Note API URL] (https://mynoteapi.herokuapp.com/)
+-   [My Note API README](https://github.com/angmas/my-note-api/blob/master/README.md)
+-   [My Note API URL](https://mynoteapi.herokuapp.com/)
 
 
 ## Application Documentation
@@ -33,7 +33,7 @@ Wireframes, User Stories, Future Enhancements, and Hi-Level Code Flow can be
 in the folling google doc. User stories have been written in the speaker notes
 section under the wireframes.
 
-<https://drive.google.com/open?id=1j49LmMBXOH2be_nlWbRV1rNbQpJVzUhry6JTQhsC05Q>
+-   [My Note Documentation](https://drive.google.com/open?id=1j49LmMBXOH2be_nlWbRV1rNbQpJVzUhry6JTQhsC05Q)
 
 ## Retrospective
 I severely underestimated the amount of time that I needed to build out this
