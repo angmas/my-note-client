@@ -1,26 +1,19 @@
 'use strict'
 const store = require('./store')
-const noteEvents = require('./note/events')
 const showHomeTemplate = require('./templates/home.handlebars')
-const oneNoteTemplate = require('./templates/note-listing.handlebars')
+// const oneNoteTemplate = require('./templates/note-listing.handlebars')
 const noteEditFields = require('./templates/note-partial.handlebars')
+const showLandingPageTemplate = require('./templates/landing-page.handlebars')
 
+const showLandingPage = function () {
+  $('.container').empty()
+  $('.container').append(showLandingPageTemplate)
+}
 const clearModal = function () {
   $('.modal').modal('hide')
   $('form').trigger('reset')
   $('.modal').modal('backdrop')
-  $('.container').empty()
-}
-const showHomePage = function () {
-  clearModal()
-  $('.container').append(showHomeTemplate({ email: store.user.email,
-    notes: store.notes }))
-  noteEvents.addHandlers()
-  addHandlers()
-}
-const addNoteToView = function () {
-  clearModal()
-  $('.container').append(oneNoteTemplate({ notes: store.note }))
+  $('body').removeClass('modal-open')
 }
 
 const getDataId = function (element) {
@@ -73,13 +66,22 @@ const passNoteToEditModal = function () {
   $('input[type="checkbox"]').prop('checked', noteItem.favorite)
 }
 
-const addHandlers = function () {
+const addHomePageHandlers = function () {
   $('.btn-remove-class').on('click', passDataToDelConfModal)
   $('.btn-edit-class').on('click', passNoteToEditModal)
+}
+const showHomePage = function () {
+  console.log('I am in showHomePage store: ', store)
+  clearModal()
+  $('.container').empty()
+  $('.container').append(showHomeTemplate({ email: store.user.email,
+    notes: store.notes }))
+  addHomePageHandlers()
 }
 
 module.exports = {
   showHomePage,
-  addNoteToView,
-  clearModal
+  // addNoteToView,
+  clearModal,
+  showLandingPage
 }
