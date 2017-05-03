@@ -15,13 +15,6 @@ const helper = require('./helper')
 let firstLandingPage = true
 let firstHomePage = true
 
-const autoSignIn = function () {
-  console.log('In autoSignIn')
-
-  authApi.signIn(store.autoSignIn)
-    .then(onShowNotes)
-    .catch(authUi.signInFailure)
-}
 const onSignUp = function (event) {
   event.preventDefault()
   console.log('I am in onSignUp')
@@ -33,13 +26,28 @@ const onSignUp = function (event) {
     .catch(authUi.signUpFailure)
 }
 
+const autoSignIn = function () {
+  console.log('In autoSignIn')
+
+  authApi.signIn(store.autoSignIn)
+    .then(onSignInSuccess)
+    .catch(authUi.signInFailure)
+}
+
 const onSignIn = function (event) {
   const data = getFormFields(this)
   event.preventDefault()
   console.log('sign-in ran!')
-  authUi.signIn(data)
-    .then(onShowNotes)
+  authApi.signIn(data)
+    .then(onSignInSuccess)
     .catch(authUi.signInFailure)
+}
+
+const onSignInSuccess = function (data) {
+  store.user = data.user
+  delete store.autoSignIn
+  console.log('I am in onSignInSuccess store: ', store)
+  onShowNotes()
 }
 
 const onSignOut = function (event) {
@@ -59,12 +67,15 @@ const onChangePassword = function (event) {
     .catch(authUi.changePasswordFailure)
 }
 
-const onShowNotes = function (data) {
+const onShowNotes = function () {
   console.log('I am in onShowNotes')
-  helper.saveUserData(data)
   noteApi.showNotes()
-    .then(onShowHomePage)
+    .then(onShowNotesSuccess)
     .catch(noteUi.showNotesFailure)
+}
+const onShowNotesSuccess = function (data) {
+  store.notes = data.user.notes
+  console.log('I am in onShowNotesSuccess store: ', store)
 }
 const onDestroyNote = function () {
   console.log('I am in onDestroyNote this: ', this)
