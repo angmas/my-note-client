@@ -15,7 +15,7 @@ const createNote = (data) => {
 }
 
 const showNotes = () => {
-  console.log('I am in showNotes')
+  console.log('I am in showNotes store: ', store)
   return $.ajax({
     url: config.apiOrigin + '/users/' + store.user.id,
     method: 'GET',

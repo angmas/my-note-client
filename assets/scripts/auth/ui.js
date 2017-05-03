@@ -1,37 +1,10 @@
 'use strict'
-const store = require('../store')
-const api = require('./api')
-const notesApi = require('../note/api')
-const notesUi = require('../note/ui')
-
-// const navPages = require('../navPages')
-
-const signUpSuccess = (data) => {
-  console.log('signUpSuccess ran: ', data)
-  api.signIn(store.autoSignIn)
-    .then(signInSuccess)
-    .catch(signInFailure)
-}
-
 const signUpFailure = (error) => {
   console.error('signUpFailure ran: ', error)
 }
 
-const signInSuccess = (data) => {
-  delete store['autoSignIn']
-  store.user = data.user
-  console.log('signInSuccess ran: ', store)
-  notesApi.showNotes()
-    .then(notesUi.showNotesSuccess)
-    .catch(notesUi.showNotesFailure)
-}
-
 const signInFailure = (error) => {
   console.error('signInFailure ran:', error)
-}
-const signOutSuccess = () => {
-  console.log('signOutSuccess ran')
-  store.user = null
 }
 
 const signOutFailure = (error) => {
@@ -47,11 +20,8 @@ const changePasswordFailure = (error) => {
 }
 
 module.exports = {
-  signUpSuccess,
   signUpFailure,
-  signInSuccess,
   signInFailure,
-  signOutSuccess,
   signOutFailure,
   changePasswordSuccess,
   changePasswordFailure
