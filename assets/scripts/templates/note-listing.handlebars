@@ -7,11 +7,14 @@
       <i class="fa fa-trash-o" aria-hidden="true"></i></button>
     <button class="btn btn-primary btn-edit-class btn-xs" role="button" data-toggle="modal" data-target="#note-edit-modal">
     <i class="fa fa-pencil" aria-hidden="true"></i></button>
-
     {{#if note.favorite}}
       <strong><span>{{note.note_title}}</span></strong>
     {{else}}
     <span>{{note.note_title}}</span>
+    {{/if}}
+    {{#if note.note_detail}}
+    <hr>
+    <p class="list-detail">{{note.note_detail}}</p>
     {{/if}}
   </li>
   {{/each}}
