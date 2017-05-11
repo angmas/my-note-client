@@ -61,8 +61,8 @@ const passNoteToEditModal = function () {
   // set data-id on form so it can get passed on Save
   $('#note-edit').attr('data-id', dataId)
   // since the fieldset is appended, it needs to be cleared out so multiple field sets are not appended
-  $('fieldset').empty()
-  $('fieldset').append(noteEditFields({note: noteItem}))
+  $('#note-edit-fieldset').empty()
+  $('#note-edit-fieldset').append(noteEditFields({note: noteItem}))
 
   // manually set checkbox. checkboxes suck
   $('input[type="checkbox"]').prop('checked', noteItem.favorite)
