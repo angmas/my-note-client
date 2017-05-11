@@ -1,5 +1,6 @@
 'use strict'
 const store = require('./store')
+const moment = require('moment')
 const getFormFields = require(`../../lib/get-form-fields`)
 const navPages = require('./navPages')
 const authApi = require('./auth/api')
@@ -75,9 +76,17 @@ const onShowNotes = function () {
     .then(onShowNotesSuccess)
     .catch(noteUi.showNotesFailure)
 }
+const formatDateTime = function () {
+  console.log('formatDateTime')
+  store.notes.forEach(e => {
+    e.created_at = moment(e.created_at).format('MM-DD-YYYY h:mm:ss a')
+    e.updated_at = moment(e.updated_at).format('MM-DD-YYYY h:mm:ss a')
+  })
+}
 const onShowNotesSuccess = function (data) {
   store.notes = data.user.notes
   console.log('I am in onShowNotesSuccess store: ', store)
+  formatDateTime()
   onShowHomePage()
 }
 const onDestroyNote = function () {
