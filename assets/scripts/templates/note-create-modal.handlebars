@@ -8,11 +8,11 @@
 
       <form id="note-create" class="form-horizontal">
         <div class="modal-body form-group">
-          <fieldset>
-            <input type="checkbox" name="note[favorite]" id="favorite">
+          <fieldset id="note-create-fieldset">
+            <input  id="note-create-favorite" type="checkbox" name="note[favorite]">
             <label for="favorite">favorite?</label>
-            <input type="text" name="note[note_title]" class="note-title" placeholder="Note title">
-            <input type="text" name="note[note_detail]" class="note-detail" placeholder="Note detail">
+            <input id="note-create-title" type="text" name="note[note_title]" class="note-title" placeholder="Note title">
+            <input id="note-create-detail"type="text" name="note[note_detail]" class="note-detail" placeholder="Note detail">
           </fieldset>
         </div>
         <div class="modal-footer">
