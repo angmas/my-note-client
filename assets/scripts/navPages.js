@@ -120,7 +120,7 @@ const addLandingPageHandlers = function () {
   $('.modal').on('show.bs.modal', resetModalForm)
   $('.reset').on('click', resetModalForm)
   // $('#sign-up-email').on('blur', validateEmail)
-  $('#sign-up-email').on('focus', resetFormGroup)
+  $('input').on('focus', resetFormGroup)
   // $('.close-btn').on('click', clearModal)
 }
 

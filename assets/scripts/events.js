@@ -11,67 +11,105 @@ const noteUi = require('./note/ui')
 
 const helper = require('./helper')
 const errorMsg = {
-  emailRequired: 'Email is required'
+  emailRequired: 'Email is required',
+  passwordRequired: 'Password is required',
+  pwConfirmRequired: 'Password Confirmation is required',
+  pwConfirmNotEq: 'Password Confirmation must match password'
 }
 const setFieldError = function (formGroup, error) {
+  $(formGroup).parent().addClass('has-error')
+  $(formGroup).parent().find('.glyphicon').addClass('glyphicon-remove')
+  $(formGroup).parent().find('.help-block').text(error)
   console.log('setErrorClasses formGroup: ', formGroup)
   console.log('parent: ', $(formGroup).parent())
   console.log('find glyph: ', $(formGroup).parent().find('.glyphicon'))
   console.log('helptext: ', $(formGroup).parent().find('.help-block'))
-  $(formGroup).parent().addClass('has-error')
-  $(formGroup).parent().find('.glyphicon').addClass('glyphicon-remove')
-  $(formGroup).parent().find('.help-block').text(error)
+}
+const isFieldEmpty = function (field) {
+  if ($(field).val() === undefined || $(field).val().trim() === '') {
+    return true
+  }
 }
 const isEmailInvalid = function (email) {
   console.log('In isEmailInvalid email: ', email)
-  if ($(email).val() === undefined || $(email).val().trim() === '') {
+  if (isFieldEmpty(email)) {
     setFieldError(email, errorMsg.emailRequired)
     return true
-  } // add validation for e-mail pattern.
+  }   // add validation for e-mail pattern.
 }
-const validateSignUp = function (callingFunction) {
+const isPasswordInvalid = function (password) {
+  console.log('In isPasswordInvalid password: ', password)
+  if (isFieldEmpty(password)) {
+    setFieldError(password, errorMsg.passwordRequired)
+    return true
+  }
+}
+
+const isEqToPw = function (password2) {
+  const password = $(password2).parents('form').find('.password').val()
+  if ($(password2).val() === password) {
+    return true
+  }
+}
+
+const isPwConfirmInvalid = function (pwConfirm) {
+  console.log('In isPwConfirmInvalid password: ', pwConfirm)
+  if (isFieldEmpty(pwConfirm)) {
+    setFieldError(pwConfirm, errorMsg.pwConfirmRequired)
+    return true
+  }
+
+  if (!isEqToPw(pwConfirm)) {
+    console.log('isNotEqToPw')
+    setFieldError(pwConfirm, errorMsg.pwConfirmNotEq)
+    return true
+  }
+}
+const isSignUpInvalid = function (callingFunction) {
   console.log('I am in validatePassword callingFunction: ', callingFunction)
-  let valid = false
+  let invalid = false
   if (callingFunction === 'onSignUp') {
-    // make values easier to reference
     const email = $('#sign-up-email').get(0)
-    isEmailInvalid(email)
-    // check first for empty fields
+    const password = $('#sign-up-password').get(0)
+    const passwordConfirm = $('#sign-up-pw-confirm').get(0)
 
-    const password = $('#sign-up-password').val()
-
-    if (password === undefined || password.trim() === '') {
-      valid = false
-      $('#form-group-sign-up-password').addClass('has-error')
-      $('#sign-up-password-glyphicon').addClass('glyphicon-remove')
-      $('#sign-up-password-help-block').text('Password is required')
+    if (isEmailInvalid(email)) {
+      invalid = true
     }
-    const confirmPassword = $('#sign-up-password-confirmation').val()
-    if (confirmPassword === undefined || confirmPassword.trim() === '') {
-      valid = false
-      $('#form-group-sign-up-pw-confirm').addClass('has-error')
-      $('#sign-up-pw-confirm-glyph').addClass('glyphicon-remove')
-      $('#signUpPwConfirmHelpBlock').text('Password confirmation is required')
+    if (isPasswordInvalid(password)) {
+      invalid = true
     }
-    return valid
-    // if ($('#sign-up-password').val() !== $('#sign-up-password-confirmation').val()) {
-    //   $('#pwConfirmHelpBlock').text('Passwords must match.')
-    //   console.log('password: ', $('#sign-up-password').val(), ' confirm: ', $('#sign-up-password-confirmation').val())
-    //   valid = false
-    // }
+    if (isPwConfirmInvalid(passwordConfirm)) {
+      invalid = true
+    }
+    return invalid
+  }
+}
+const signUpFailure = function (error) {
+  const errorMsg = error.responseJSON
+  if ('email' in errorMsg) {
+    setFieldError($('#sign-up-email').get(), `Email: ${errorMsg.email[0]}`)
+  }
+  if ('password_confirmation' in errorMsg) {
+    setFieldError($('#sign-up-pw-confirm').get(), `Password confirmation:  ${errorMsg.password_confirmation}`)
+  }
+  if ('password' in errorMsg) {
+    setFieldError($('#sign-up-password').get(), `Password:  ${errorMsg.password}`)
   }
 }
 const onSignUp = function (event) {
   event.preventDefault()
   console.log('I am in onSignUp')
-  if (validateSignUp('onSignUp')) {
-    const data = getFormFields(this)
-    store.autoSignIn = data
-
-    authApi.signUp(data)
-      .then(autoSignIn)
-      .catch(authUi.signUpFailure)
+  if (isSignUpInvalid('onSignUp')) {
+    return
   }
+  const data = getFormFields(this)
+  store.autoSignIn = data
+
+  authApi.signUp(data)
+    .then(autoSignIn)
+    .catch(signUpFailure)
+    // .catch(authUi.signUpFailure)
 }
 
 const autoSignIn = function () {
