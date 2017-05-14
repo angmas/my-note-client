@@ -11,19 +11,19 @@ const noteUi = require('./note/ui')
 
 const helper = require('./helper')
 const errorMsg = {
-  emailRequired: 'Email is required',
-  passwordRequired: 'Password is required',
-  pwConfirmRequired: 'Password Confirmation is required',
-  pwConfirmNotEq: 'Password Confirmation must match password'
+  emailRequired: 'Email: required',
+  passwordRequired: 'Password: required',
+  pwConfirmRequired: 'Password Confirmation: required',
+  pwConfirmNotEq: 'Password Confirmation: must match password'
 }
-const setFieldError = function (formGroup, error) {
-  $(formGroup).parent().addClass('has-error')
-  $(formGroup).parent().find('.glyphicon').addClass('glyphicon-remove')
-  $(formGroup).parent().find('.help-block').text(error)
-  console.log('setErrorClasses formGroup: ', formGroup)
-  console.log('parent: ', $(formGroup).parent())
-  console.log('find glyph: ', $(formGroup).parent().find('.glyphicon'))
-  console.log('helptext: ', $(formGroup).parent().find('.help-block'))
+const setFieldError = function (input, error) {
+  $(input).parent().addClass('has-error')
+  $(input).parent().find('.glyphicon').addClass('glyphicon-remove')
+  $(input).parent().find('.help-block').text(error)
+  console.log('setErrorClasses input: ', input)
+  console.log('parent: ', $(input).parent())
+  console.log('find glyph: ', $(input).parent().find('.glyphicon'))
+  console.log('helptext: ', $(input).parent().find('.help-block'))
 }
 const isFieldEmpty = function (field) {
   if ($(field).val() === undefined || $(field).val().trim() === '') {
@@ -65,42 +65,49 @@ const isPwConfirmInvalid = function (pwConfirm) {
     return true
   }
 }
-const isSignUpInvalid = function (callingFunction) {
-  console.log('I am in validatePassword callingFunction: ', callingFunction)
+const isFormInvalid = function (authForm) {
+  console.log('I am in validatePassword authForm id: ', $(authForm).attr('id'))
+  const authFunction = $(authForm).attr('id')
   let invalid = false
-  if (callingFunction === 'onSignUp') {
-    const email = $('#sign-up-email').get(0)
-    const password = $('#sign-up-password').get(0)
-    const passwordConfirm = $('#sign-up-pw-confirm').get(0)
+  const email = $(authForm).find('.email').get(0)
+  console.log('authForm .email: ', email)
+  const password = $(authForm).find('.password').get(0)
+  const passwordConfirm = $(authForm).find('.password-confirm').get(0)
 
-    if (isEmailInvalid(email)) {
-      invalid = true
-    }
-    if (isPasswordInvalid(password)) {
-      invalid = true
-    }
+  if (isEmailInvalid(email)) {
+    invalid = true
+  }
+  if (isPasswordInvalid(password)) {
+    invalid = true
+  }
+  if (authFunction !== 'sign-in') {
     if (isPwConfirmInvalid(passwordConfirm)) {
       invalid = true
     }
-    return invalid
   }
+  return invalid
 }
-const signUpFailure = function (error) {
+const authFailure = function (error) {
+  const authForm = $('.modal.in').get() // find open modal
+  const email = $(authForm).find('.email')
+  const password = $(authForm).find('.password')
+  const passwordConfirm = $(authForm).find('.password-confirm')
+  console.log('authFailure email: ', email)
   const errorMsg = error.responseJSON
   if ('email' in errorMsg) {
-    setFieldError($('#sign-up-email').get(), `Email: ${errorMsg.email[0]}`)
+    setFieldError(email, `Email: ${errorMsg.email[0]}`)
   }
   if ('password_confirmation' in errorMsg) {
-    setFieldError($('#sign-up-pw-confirm').get(), `Password confirmation:  ${errorMsg.password_confirmation}`)
+    setFieldError(passwordConfirm, `Password confirmation:  ${errorMsg.password_confirmation}`)
   }
   if ('password' in errorMsg) {
-    setFieldError($('#sign-up-password').get(), `Password:  ${errorMsg.password}`)
+    setFieldError(password, `Password:  ${errorMsg.password}`)
   }
 }
 const onSignUp = function (event) {
   event.preventDefault()
-  console.log('I am in onSignUp')
-  if (isSignUpInvalid('onSignUp')) {
+  console.log('I am in onSignUp this: ', this)
+  if (isFormInvalid(this)) {
     return
   }
   const data = getFormFields(this)
@@ -108,7 +115,7 @@ const onSignUp = function (event) {
 
   authApi.signUp(data)
     .then(autoSignIn)
-    .catch(signUpFailure)
+    .catch(authFailure)
     // .catch(authUi.signUpFailure)
 }
 
