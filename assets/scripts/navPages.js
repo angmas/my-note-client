@@ -15,6 +15,7 @@ const clearModal = function () {
   $('.modal').modal('hide')
   $('form').trigger('reset')
   $('.modal').modal('backdrop')
+  // $('.help-block').text()
   $('body').removeClass('modal-open')
 }
 
@@ -70,6 +71,9 @@ const passNoteToEditModal = function () {
 const resetModalForm = function () {
   console.log('resetModalForm')
   $('form').trigger('reset')
+  $('.help-block').text('')
+  $('.glyphicon').removeClass('glyphicon-remove')
+  $('.has-feedback').removeClass('has-error')
 }
 const addHomePageHandlers = function () {
   $('.btn-remove-class').on('click', passDataToDelConfModal)
@@ -85,9 +89,39 @@ const showHomePage = function () {
     notes: store.notes }))
   addHomePageHandlers()
 }
+const validateEmail = function (event) {
+  // const valid = false
+  console.log('eventrelatedtarget :', event.relatedTarget)
+  console.log('eventrelatedtargettype :', event.relatedTarget.type)
+  const email = $('#sign-up-email').val()
+  // if ($(':focus').is('.close-btn')) {
+    // return false
+  // }
 
+  // check first for empty fields
+  if (email === undefined || email.trim() === '') {
+    // valid = false
+    $('#form-group-sign-up-email').addClass('has-error')
+    $('#sign-up-email-glyphicon').addClass('glyphicon-remove')
+    $('#sign-up-email-help-block').text('Email address is required')
+  }
+}
+
+const resetFormGroup = function () {
+  console.log('resetFormGroup this: ', this)
+  console.log('parent: ', $(this).parent())
+  console.log('find glyph: ', $(this).parent().find('.glyphicon'))
+  console.log('closest help: ', $(this).parent().find('.help-block'))
+  $(this).parent().removeClass('has-error')
+  $(this).parent().find('.glyphicon').removeClass('glyphicon-remove')
+  $(this).parent().find('.help-block').text('')
+}
 const addLandingPageHandlers = function () {
   $('.modal').on('show.bs.modal', resetModalForm)
+  $('.reset').on('click', resetModalForm)
+  // $('#sign-up-email').on('blur', validateEmail)
+  $('#sign-up-email').on('focus', resetFormGroup)
+  // $('.close-btn').on('click', clearModal)
 }
 
 module.exports = {
