@@ -14,7 +14,8 @@ const errorMsg = {
   emailRequired: 'Email: required',
   passwordRequired: 'Password: required',
   pwConfirmRequired: 'Password Confirmation: required',
-  pwConfirmNotEq: 'Password Confirmation: must match password'
+  pwConfirmNotEq: 'Password Confirmation: must match password',
+  unauthorized: 'Incorrect Email or Password'
 }
 const setFieldError = function (input, error) {
   $(input).parent().addClass('has-error')
@@ -88,20 +89,35 @@ const isFormInvalid = function (authForm) {
   return invalid
 }
 const authFailure = function (error) {
-  const authForm = $('.modal.in').get() // find open modal
+  // set semantic labels for HTTP status codes
+  const unauthorized = 401
+  const badRequest = 400
+
+  // find open modal
+  const authForm = $('.modal.in').get()
+
+  // set correct DOM elements
   const email = $(authForm).find('.email')
   const password = $(authForm).find('.password')
   const passwordConfirm = $(authForm).find('.password-confirm')
   console.log('authFailure email: ', email)
-  const errorMsg = error.responseJSON
-  if ('email' in errorMsg) {
-    setFieldError(email, `Email: ${errorMsg.email[0]}`)
+
+  if (error.status === badRequest) {
+    const errorMsg = error.responseJSON
+    console.log('authFailure error: ', error)
+    if ('email' in errorMsg) {
+      setFieldError(email, `Email: ${errorMsg.email[0]}`)
+    }
+    if ('password_confirmation' in errorMsg) {
+      setFieldError(passwordConfirm, `Password confirmation:  ${errorMsg.password_confirmation}`)
+    }
+    if ('password' in errorMsg) {
+      setFieldError(password, `Password:  ${errorMsg.password}`)
+    }
   }
-  if ('password_confirmation' in errorMsg) {
-    setFieldError(passwordConfirm, `Password confirmation:  ${errorMsg.password_confirmation}`)
-  }
-  if ('password' in errorMsg) {
-    setFieldError(password, `Password:  ${errorMsg.password}`)
+  if (error.status === unauthorized) {
+    setFieldError(email, errorMsg.unauthorized)
+    setFieldError(password, '')
   }
 }
 const onSignUp = function (event) {
@@ -128,12 +144,17 @@ const autoSignIn = function () {
 }
 
 const onSignIn = function (event) {
-  const data = getFormFields(this)
   event.preventDefault()
-  console.log('sign-in ran!')
+  console.log('in onSignIn')
+  if (isFormInvalid(this)) {
+    return
+  }
+  const data = getFormFields(this)
+
   authApi.signIn(data)
     .then(onSignInSuccess)
-    .catch(authUi.signInFailure)
+    // .catch(authUi.signInFailure)
+    .catch(authFailure)
 }
 
 const onSignInSuccess = function (data) {
