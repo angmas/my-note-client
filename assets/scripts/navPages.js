@@ -11,7 +11,7 @@ const showLandingPage = function () {
   addLandingPageHandlers()
 }
 const clearModal = function () {
-  console.log('iam in clearModal')
+  // console.log('iam in clearModal')
   $('.modal').modal('hide')
   $('form').trigger('reset')
   $('.modal').modal('backdrop')
@@ -26,7 +26,7 @@ const getDataId = function (element) {
 }
 const parseTitle = function (element) {
   let title
-  console.log('parseTitle this: ', element)
+  // console.log('parseTitle this: ', element)
   // The note title will exist in span element.
   // If the note item favorite=true, then the
   // the span will be a child of the strong element
@@ -49,8 +49,8 @@ const parseTitle = function (element) {
 const passDataToDelConfModal = function () {
   const title = parseTitle(this)
   const dataId = getDataId(this)
-  console.log('I am in passDataModal title: ', title)
-  console.log('I am in passDataModal dataId: ', dataId)
+  // console.log('I am in passDataModal title: ', title)
+  // console.log('I am in passDataModal dataId: ', dataId)
   $('.modal-body #delete-title').text(title)
   $('#confirm-delete-modal').attr('data-id', dataId)
 }
@@ -71,12 +71,12 @@ const passNoteToEditModal = function () {
   // if (noteItem.favorite) {
   //   $(checkbox).attr('checked')
   //   // $('#note-edit-fieldset').find('input[type="checkbox"]').prop('checked', true)
-  console.log('checkbox: ', $('#note-edit-favorite').prop('checked'))
+  // console.log('checkbox: ', $('#note-edit-favorite').prop('checked'))
   // }
 }
 
 const resetModalForm = function () {
-  console.log('resetModalForm')
+  // console.log('resetModalForm')
   $('form').trigger('reset')
   $('.help-block').text('')
   $('.glyphicon').removeClass('glyphicon-remove')
@@ -91,7 +91,7 @@ const addHomePageHandlers = function () {
 }
 
 const showHomePage = function () {
-  console.log('I am in showHomePage store: ', store)
+  // console.log('I am in showHomePage store: ', store)
   clearModal()
   $('.container').empty()
   $('.container').append(showHomeTemplate({ email: store.user.email,
@@ -100,8 +100,8 @@ const showHomePage = function () {
 }
 const validateEmail = function (event) {
   // const valid = false
-  console.log('eventrelatedtarget :', event.relatedTarget)
-  console.log('eventrelatedtargettype :', event.relatedTarget.type)
+  // console.log('eventrelatedtarget :', event.relatedTarget)
+  // console.log('eventrelatedtargettype :', event.relatedTarget.type)
   const email = $('#sign-up-email').val()
   // if ($(':focus').is('.close-btn')) {
     // return false
@@ -117,10 +117,11 @@ const validateEmail = function (event) {
 }
 
 const resetFormGroup = function () {
-  console.log('resetFormGroup this: ', this)
-  console.log('parent: ', $(this).parent().parent())
-  console.log('find glyph: ', $(this).parent().find('.glyphicon'))
-  console.log('closest help: ', $(this).parent().find('.help-block'))
+  // console.log('resetFormGroup this: ', this)
+  // console.log('parent: ', $(this).parent().parent())
+  // console.log('find glyph: ', $(this).parent().find('.glyphicon'))
+  // console.log('closest help: ', $(this).parent().find('.help-block'))
+  $(this).parent().removeClass('has-error')
   $(this).parent().parent().removeClass('has-error')
   $(this).parent().find('.glyphicon').removeClass('glyphicon-remove')
   $(this).parent().find('.help-block').text('')
