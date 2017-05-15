@@ -7,12 +7,30 @@
       </div>
 
       <form id="note-create" class="form-horizontal">
-        <div class="modal-body form-group">
+        <div class="modal-body">
           <fieldset id="note-create-fieldset">
-            <input  id="note-create-favorite" type="checkbox" name="note[favorite]">
-            <label for="favorite">favorite?</label>
-            <input id="note-create-title" type="text" name="note[note_title]" class="note-title" placeholder="Note title">
-            <input id="note-create-detail"type="text" name="note[note_detail]" class="note-detail" placeholder="Note detail">
+            <div id="form-group-create-favorite" class="form-group">
+              <div class="col-sm-offset-3 col-sm-8">
+                <div class="checkbox">
+                  <label>
+                    <input  id="note-create-favorite" type="checkbox" name="note[favorite]"> favorite</label>
+                </div>
+              </div>
+            </div>
+            <div id="form-group-create-title" class="form-group  has-feedback">
+              <label class="col-sm-3 control-label" for="note-create-title">Note Title</label>
+              <div class="col-sm-8">
+                <input id="note-create-title" type="text" name="note[note_title]" class="note-title form-control" placeholder="Note Title">
+                <span id="create-title-glyphicon" class="glyphicon  form-control-feedback"></span>
+                <span id="create-title-help-block" class="help-block">A block of help text that breaks onto a new line and may extend beyond one line.</span>
+              </div>
+            </div>
+            <div class="form-group">
+              <label for="note-create-detail" class="col-sm-3 control-label">Note Detail</label>
+              <div class="col-sm-8">
+                <input id="note-create-detail"type="text" name="note[note_detail]" class="note-detail form-control" placeholder="Note Detail">
+              </div>
+          </div>
           </fieldset>
         </div>
         <div class="modal-footer">
