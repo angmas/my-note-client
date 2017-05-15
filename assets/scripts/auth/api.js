@@ -28,7 +28,7 @@ const signOut = () => {
 }
 
 const changePassword = (data) => {
-  console.log('changePassword ran - store is: ', store)
+  // console.log('changePassword ran - store is: ', store)
   return $.ajax({
     url: config.apiOrigin + '/change-password/' + store.user.id,
     method: 'PATCH',
