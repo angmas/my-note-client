@@ -2,8 +2,13 @@
 <div id="form-group-edit-favorite" class="form-group">
   <div class="col-sm-offset-3 col-sm-8">
     <div class="checkbox">
-      <label>
-        <input id="note-edit-favorite" type="checkbox" name="note[favorite]"> favorite</label>
+      {{#if note.favorite}}
+      <label for="note-edit-favorite">
+        <input id="note-edit-favorite" type="checkbox" name="note[favorite]" checked> favorite</label>
+        {{else}}
+        <label for="note-edit-favorite">
+          <input id="note-edit-favorite" type="checkbox" name="note[favorite]"> favorite</label>
+        {{/if}}
     </div>
   </div>
 </div>

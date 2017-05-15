@@ -57,6 +57,7 @@ const passDataToDelConfModal = function () {
 
 const passNoteToEditModal = function () {
   const dataId = getDataId(this)
+
   // find the exact note item from store
   const noteItem = store.notes.find(e => e.id === parseInt(dataId))
   // set data-id on form so it can get passed on Save
@@ -64,10 +65,16 @@ const passNoteToEditModal = function () {
   // since the fieldset is appended, it needs to be cleared out so multiple field sets are not appended
   $('#note-edit-fieldset').empty()
   $('#note-edit-fieldset').append(noteEditFields({note: noteItem}))
+  $('input').on('focus', resetFormGroup)
 
   // manually set checkbox. checkboxes suck
-  $('input[type="checkbox"]').prop('checked', noteItem.favorite)
+  // if (noteItem.favorite) {
+  //   $(checkbox).attr('checked')
+  //   // $('#note-edit-fieldset').find('input[type="checkbox"]').prop('checked', true)
+  console.log('checkbox: ', $('#note-edit-favorite').prop('checked'))
+  // }
 }
+
 const resetModalForm = function () {
   console.log('resetModalForm')
   $('form').trigger('reset')

@@ -281,8 +281,13 @@ const onDestroyNote = function () {
     .then(onShowNotes)
     .catch(noteUi.destroyNoteFailure)
 }
-const setCheckbox = function () {
-  $('input[type="checkbox"]').val($('input[type="checkbox"]').prop('checked'))
+const setCheckbox = function (form) {
+  const checkbox = $(form).find('input[type="checkbox"]').get(0)
+  if ($(checkbox).prop('checked')) {
+    $(checkbox).val(true)
+  } else {
+    $(checkbox).val(false)
+  }
 }
 
 const isNoteInvalid = function (noteForm) {
@@ -302,7 +307,7 @@ const onCreateNote = function (event) {
     return
   }
   // set the value of favorite so that the function getFormFields can parse it correctly
-  setCheckbox()
+  setCheckbox(this)
   const data = getFormFields(this)
   console.log('onCreateNote data: ', data)
 
@@ -315,9 +320,12 @@ const onUpdateNote = function (event) {
   event.preventDefault()
   // get data-id value from form
   const dataId = $('#note-edit').attr('data-id')
-  console.log('onUpdateNote dataId: ', dataId)
+  console.log('onUpdateNote this: ', this)
   // set the value of favorite so that the function getFormFields can parse it correctly
-  setCheckbox()
+  if (isNoteInvalid(this)) {
+    return
+  }
+  setCheckbox(this)
   // $(checkbox).val($('checkbox').prop('checked'))
   // const check = $(checkbox).val()
   // console.log('value of favorite: ', check)
