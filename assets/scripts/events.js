@@ -27,18 +27,18 @@ const setFieldError = function (input, error) {
   $(input).parent().addClass('has-error')
   $(input).parent().find('.glyphicon').addClass('glyphicon-remove')
   $(input).parent().find('.help-block').text(error)
-  console.log('setErrorClasses input: ', input)
-  console.log('parent: ', $(input).parent())
-  console.log('find glyph: ', $(input).parent().find('.glyphicon'))
-  console.log('helptext: ', $(input).parent().find('.help-block'))
+  // console.log('setErrorClasses input: ', input)
+  // console.log('parent: ', $(input).parent())
+  // console.log('find glyph: ', $(input).parent().find('.glyphicon'))
+  // console.log('helptext: ', $(input).parent().find('.help-block'))
 }
 const setNoteFieldError = function (formGroup, error) {
   $(formGroup).addClass('has-error')
   $(formGroup).find('.glyphicon').addClass('glyphicon-remove')
   $(formGroup).find('.help-block').text(error)
-  console.log('setNoteFieldError formGroup: ', formGroup)
-  console.log('find glyph: ', $(formGroup).find('.glyphicon'))
-  console.log('helptext: ', $(formGroup).find('.help-block'))
+  // console.log('setNoteFieldError formGroup: ', formGroup)
+  // console.log('find glyph: ', $(formGroup).find('.glyphicon'))
+  // console.log('helptext: ', $(formGroup).find('.help-block'))
 }
 const isFieldEmpty = function (field) {
   if ($(field).val() === undefined || $(field).val().trim() === '') {
@@ -46,14 +46,14 @@ const isFieldEmpty = function (field) {
   }
 }
 const isEmailInvalid = function (email) {
-  console.log('In isEmailInvalid email: ', email)
+  // console.log('In isEmailInvalid email: ', email)
   if (isFieldEmpty(email)) {
     setFieldError(email, errorMsg.emailRequired)
     return true
   }   // add validation for e-mail pattern.
 }
 const isPasswordInvalid = function (password) {
-  console.log('In isPasswordInvalid password: ', password)
+  // console.log('In isPasswordInvalid password: ', password)
   if (isFieldEmpty(password)) {
     setFieldError(password, errorMsg.passwordRequired)
     return true
@@ -61,7 +61,7 @@ const isPasswordInvalid = function (password) {
 }
 
 const isOldPwInvalid = function (oldPw) {
-  console.log('In isOldPwInvalid oldPw: ', oldPw)
+  // console.log('In isOldPwInvalid oldPw: ', oldPw)
   if (isFieldEmpty(oldPw)) {
     setFieldError(oldPw, errorMsg.oldPwRequired)
     return true
@@ -69,7 +69,7 @@ const isOldPwInvalid = function (oldPw) {
 }
 
 const isNewPwInvalid = function (newPw, oldPw) {
-  console.log('In isNewPwInvalid newPw: ', newPw)
+  // console.log('In isNewPwInvalid newPw: ', newPw)
   if (isFieldEmpty(newPw)) {
     setFieldError(newPw, errorMsg.newPwRequired)
     return true
@@ -88,26 +88,26 @@ const isEqToPw = function (pwConfirm, password) {
 }
 
 const isPwConfirmInvalid = function (pwConfirm, password) {
-  console.log('In isPwConfirmInvalid password: ', pwConfirm)
+  // console.log('In isPwConfirmInvalid password: ', pwConfirm)
   if (isFieldEmpty(pwConfirm)) {
     setFieldError(pwConfirm, errorMsg.pwConfirmRequired)
     return true
   }
 
   if (!isEqToPw(pwConfirm, password)) {
-    console.log('isNotEqToPw')
+    // console.log('isNotEqToPw')
     setFieldError(pwConfirm, errorMsg.pwConfirmNotEq)
     return true
   }
 }
 const isFormInvalid = function (authForm) {
-  console.log('I am in validatePassword authForm id: ', $(authForm).attr('id'))
+  // console.log('I am in validatePassword authForm id: ', $(authForm).attr('id'))
   const authFunction = $(authForm).attr('id')
   let invalid = false
 
   if (authFunction !== 'change-password') {
     const email = $(authForm).find('.email').get(0)
-    console.log('authForm .email: ', email)
+    // console.log('authForm .email: ', email)
     const password = $(authForm).find('.password').get(0)
 
     if (isEmailInvalid(email)) {
@@ -157,11 +157,11 @@ const authFailure = function (error) {
   const password = $(authForm).find('.password')
   const passwordConfirm = $(authForm).find('.password-confirm')
   const oldPw = $(authForm).find('.oldPw')
-  console.log('authFailure email: ', email)
+  // console.log('authFailure email: ', email)
   if (error.status === badRequest) {
     if ('responseJSON' in error) {
       const errorMsg = error.responseJSON
-      console.log('authFailure error: ', error)
+      // console.log('authFailure error: ', error)
       if ('email' in errorMsg) {
         setFieldError(email, `Email: ${errorMsg.email[0]}`)
       }
@@ -183,7 +183,7 @@ const authFailure = function (error) {
 }
 const onSignUp = function (event) {
   event.preventDefault()
-  console.log('I am in onSignUp this: ', this)
+  // console.log('I am in onSignUp this: ', this)
   if (isFormInvalid(this)) {
     return
   }
@@ -197,7 +197,7 @@ const onSignUp = function (event) {
 }
 
 const autoSignIn = function () {
-  console.log('In autoSignIn')
+  // console.log('In autoSignIn')
 
   authApi.signIn(store.autoSignIn)
     .then(onSignInSuccess)
@@ -206,7 +206,7 @@ const autoSignIn = function () {
 
 const onSignIn = function (event) {
   event.preventDefault()
-  console.log('in onSignIn')
+  // console.log('in onSignIn')
   if (isFormInvalid(this)) {
     return
   }
@@ -221,14 +221,14 @@ const onSignIn = function (event) {
 const onSignInSuccess = function (data) {
   store.user = data.user
   delete store.autoSignIn
-  console.log('I am in onSignInSuccess store: ', store)
+  // console.log('I am in onSignInSuccess store: ', store)
   onShowNotes()
 }
 
 const onSignOut = function (event) {
   // const data = getFormFields(this)
   event.preventDefault()
-  console.log('onSignOut ran!')
+  // console.log('onSignOut ran!')
   authApi.signOut()
     .then(onSignOutSuccess)
     .catch(authUi.signOutFailure)
@@ -237,7 +237,7 @@ const onSignOut = function (event) {
 const onSignOutSuccess = function () {
   delete store.user
   delete store.notes
-  console.log('I am in onSignOutSuccess store: ')
+  // console.log('I am in onSignOutSuccess store: ')
   onShowLandingPage()
 }
 const onChangePassword = function (event) {
@@ -247,7 +247,7 @@ const onChangePassword = function (event) {
     return
   }
 
-  console.log('onChangePassword ran!')
+  // console.log('onChangePassword ran!')
   authApi.changePassword(data)
     .then(navPages.clearModal)
     // .catch(authUi.changePasswordFailure)
@@ -255,13 +255,13 @@ const onChangePassword = function (event) {
 }
 
 const onShowNotes = function () {
-  console.log('I am in onShowNotes')
+  // console.log('I am in onShowNotes')
   noteApi.showNotes()
     .then(onShowNotesSuccess)
     .catch(noteUi.showNotesFailure)
 }
 const formatDateTime = function () {
-  console.log('formatDateTime')
+  // console.log('formatDateTime')
   store.notes.forEach(e => {
     e.created_at = moment(e.created_at).format('MM-DD-YYYY h:mm:ss a')
     e.updated_at = moment(e.updated_at).format('MM-DD-YYYY h:mm:ss a')
@@ -269,14 +269,14 @@ const formatDateTime = function () {
 }
 const onShowNotesSuccess = function (data) {
   store.notes = data.user.notes
-  console.log('I am in onShowNotesSuccess store: ', store)
+  // console.log('I am in onShowNotesSuccess store: ', store)
   formatDateTime()
   onShowHomePage()
 }
 const onDestroyNote = function () {
-  console.log('I am in onDestroyNote this: ', this)
+  // console.log('I am in onDestroyNote this: ', this)
   const dataId = helper.getDataId(this)
-  console.log('I am in onDestroyNote dataId: ', dataId)
+  // console.log('I am in onDestroyNote dataId: ', dataId)
   noteApi.destroyNote(dataId)
     .then(onShowNotes)
     .catch(noteUi.destroyNoteFailure)
@@ -291,7 +291,7 @@ const setCheckbox = function (form) {
 }
 
 const isNoteInvalid = function (noteForm) {
-  console.log('I am in isNoteInvalid')
+  // console.log('I am in isNoteInvalid')
   const noteTitle = $(noteForm).find('.note-title').get()
   const formGroup = $(noteForm).find('.form-group-note-title')
 
@@ -302,14 +302,14 @@ const isNoteInvalid = function (noteForm) {
 }
 const onCreateNote = function (event) {
   event.preventDefault()
-  console.log('I am in onCreateNote this: ', this)
+  // console.log('I am in onCreateNote this: ', this)
   if (isNoteInvalid(this)) {
     return
   }
   // set the value of favorite so that the function getFormFields can parse it correctly
   setCheckbox(this)
   const data = getFormFields(this)
-  console.log('onCreateNote data: ', data)
+  // console.log('onCreateNote data: ', data)
 
   noteApi.createNote(data)
     .then(onShowNotes)
@@ -320,7 +320,7 @@ const onUpdateNote = function (event) {
   event.preventDefault()
   // get data-id value from form
   const dataId = $('#note-edit').attr('data-id')
-  console.log('onUpdateNote this: ', this)
+  // console.log('onUpdateNote this: ', this)
   // set the value of favorite so that the function getFormFields can parse it correctly
   if (isNoteInvalid(this)) {
     return
@@ -331,14 +331,14 @@ const onUpdateNote = function (event) {
   // console.log('value of favorite: ', check)
   const data = getFormFields(this)
 
-  console.log('onUpdateNote ran! data is: ', data)
+  // console.log('onUpdateNote ran! data is: ', data)
   noteApi.updateNote(data, dataId)
     .then(onShowNotes)
     .catch(noteUi.updateNoteFailure)
 }
 
 const addHomeHandlers = () => {
-  console.log('I am in note/addHandlers')
+  // console.log('I am in note/addHandlers')
   $('#note-create').on('submit', onCreateNote)
   $('.btn-delete-confirmation').on('click', onDestroyNote)
   $('#note-edit').on('submit', onUpdateNote)
@@ -348,7 +348,7 @@ const addHomeHandlers = () => {
 }
 
 const addLandingPageHandlers = () => {
-  console.log('I am in addLandingPageHandlers')
+  // console.log('I am in addLandingPageHandlers')
   $('#sign-up').on('submit', onSignUp)
   $('#sign-in').on('submit', onSignIn)
 }
