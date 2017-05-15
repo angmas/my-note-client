@@ -3,7 +3,7 @@ const config = require('../config')
 const store = require('../store')
 
 const createNote = (data) => {
-  console.log('Iam in createNote api.js')
+  // console.log('Iam in createNote api.js')
   return $.ajax({
     url: config.apiOrigin + '/notes',
     method: 'POST',
@@ -15,7 +15,7 @@ const createNote = (data) => {
 }
 
 const showNotes = () => {
-  console.log('I am in showNotes store: ', store)
+  // console.log('I am in showNotes store: ', store)
   return $.ajax({
     url: config.apiOrigin + '/users/' + store.user.id,
     method: 'GET',
@@ -25,7 +25,7 @@ const showNotes = () => {
   })
 }
 const destroyNote = (data) => {
-  console.log('I am in destroyNote')
+  // console.log('I am in destroyNote')
   return $.ajax({
     url: config.apiOrigin + '/notes/' + data,
     method: 'DELETE',
@@ -36,7 +36,7 @@ const destroyNote = (data) => {
 }
 
 const updateNote = (data, noteId) => {
-  console.log('updateNote ran - store is: ', store)
+  // console.log('updateNote ran - store is: ', store)
   return $.ajax({
     url: config.apiOrigin + '/notes/' + noteId,
     method: 'PATCH',
