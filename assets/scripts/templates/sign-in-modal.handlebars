@@ -9,8 +9,22 @@
       <form id="sign-in">
         <div class="modal-body">
           <fieldset>
-            <input type="text" name="credentials[email]" id="sign-in-email" placeholder="email">
-            <input type="password" name="credentials[password]" id="sign-in-password" placeholder="Password">
+            <div class="row">
+            <div class="col-xs-6">
+              <div id="form-group-sign-in-email" class="form-group  has-feedback">
+              <label class="control-label" for="sign-up-email">Email</label>
+            <input type="text" name="credentials[email]" id="sign-in-email" class="form-control email">
+            <span id="sign-in-email-glyphicon" class="glyphicon  form-control-feedback"></span>
+            <span id="sign-in-email-help-block" class="help-block">A block of help text that breaks onto a new line and may extend beyond one line.</span>
+          </div>
+        </div><div class="col-xs-6">
+          <div id="form-group-sign-in-password" class="form-group  has-feedback">
+          <label class="control-label" for="sign-in-password">Password</label>
+            <input type="password" name="credentials[password]" id="sign-in-password" class="form-control password">
+            <span id="sign-in-password-glyphicon" class="glyphicon  form-control-feedback"></span>
+            <span id="sign-in-password-help-block" class="help-block">A block of help text that breaks onto a new line and may extend beyond one line.</span>
+          </div>
+            </div>
           </fieldset>
         </div>
         <div class="modal-footer">

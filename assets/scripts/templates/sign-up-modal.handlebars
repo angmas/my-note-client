@@ -1,22 +1,59 @@
 <div id="sign-up-modal" class="modal fade" tabindex="-1" role="dialog">
-  <div class="modal-dialog" role="document">
+  <div class="modal-dialog modal-lg" role="document">
     <div class="modal-content">
       <div class="modal-header">
         <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
         <h3 class="modal-title">Sign Up</h3>
+        <div id="sign-up-unexpected-failure" class="form-group has-feedback has-error">
+          <span id="sign-up-unexpected-error" class="help-block">A block of help text that breaks onto a new line and may extend beyond one line.</span>
+        </div>
       </div>
 
       <form id="sign-up">
         <div class="modal-body">
           <fieldset>
-            <input type="text" name="credentials[email]" id="sign-up-email" placeholder="email">
-            <input type="password" name="credentials[password]" id="sign-up-password" placeholder="Password">
-            <input type="password" name="credentials[password_confirmation]" id="sign_up_password_confirmation" placeholder="Password Confirmation">
+            <div class="row">
+            <div class="col-xs-4">
+              <div id="form-group-sign-up-email" class="form-group  has-feedback">
+              <label class="control-label" for="sign-up-email">Email</label>
+            <input type="text" name="credentials[email]" id="sign-up-email" class="form-control email">
+            <span id="sign-up-email-glyphicon" class="glyphicon  form-control-feedback"></span>
+            <span id="sign-up-email-help-block" class="help-block">A block of help text that breaks onto a new line and may extend beyond one line.</span>
+          </div>
+        </div>
+          <div class="col-xs-4">
+            <div id="form-group-sign-up-password" class="form-group  has-feedback">
+            <label class="control-label" for="sign-up-password">Password</label>
+          <input type="password" name="credentials[password]" id="sign-up-password" class="form-control password">
+          <span id="sign-up-password-glyphicon" class="glyphicon  form-control-feedback"></span>
+          <span id="sign-up-password-help-block" class="help-block">A block of help text that breaks onto a new line and may extend beyond one line.</span>
+        </div>
+          </div>
+          <div class="col-xs-4">
+            <div id="form-group-sign-up-pw-confirm" class="form-group  has-feedback">
+            <label class="control-label" for="sign-up-pw-confirm">Password Confirmation</label>
+          <input type="password" name="credentials[password_confirmation]" id="sign-up-pw-confirm" class="form-control password-confirm">
+          <span id="sign-up-pw-confirm-glyph" class="glyphicon  form-control-feedback"></span>
+          <span id="signUpPwConfirmHelpBlock" class="help-block">A block of help text that breaks onto a new line and may extend beyond one line.</span>
+        </div>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-xs-4">
+
+        </div>
+        <div class="col-xs-4">
+
+      </div>
+      <div class="col-xs-4">
+
+    </div>
+        </div>
           </fieldset>
         </div>
         <div class="modal-footer">
           <button id="reset-sign-up" type="reset" class="btn btn-secondary reset">Reset</button>
-          <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+          <button type="button" class="btn btn-default close-btn" data-dismiss="modal">Close</button>
           <button type="submit" class="btn btn-primary">Submit</button>
         </div>
       </form>
