@@ -79,6 +79,8 @@ const addHomePageHandlers = function () {
   $('.btn-remove-class').on('click', passDataToDelConfModal)
   $('.btn-edit-class').on('click', passNoteToEditModal)
   $('.modal').on('show.bs.modal', resetModalForm)
+  $('input').on('focus', resetFormGroup)
+  $('.reset').on('click', resetModalForm)
 }
 
 const showHomePage = function () {
@@ -109,10 +111,10 @@ const validateEmail = function (event) {
 
 const resetFormGroup = function () {
   console.log('resetFormGroup this: ', this)
-  console.log('parent: ', $(this).parent())
+  console.log('parent: ', $(this).parent().parent())
   console.log('find glyph: ', $(this).parent().find('.glyphicon'))
   console.log('closest help: ', $(this).parent().find('.help-block'))
-  $(this).parent().removeClass('has-error')
+  $(this).parent().parent().removeClass('has-error')
   $(this).parent().find('.glyphicon').removeClass('glyphicon-remove')
   $(this).parent().find('.help-block').text('')
 }
