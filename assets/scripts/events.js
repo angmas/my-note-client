@@ -119,8 +119,9 @@ const isFormInvalid = function (authForm) {
   }
 
   if (authFunction === 'sign-up') {
+    const signUpPassword = $(authForm).find('.password').get(0)
     const passwordConfirm = $(authForm).find('.password-confirm').get(0)
-    if (isPwConfirmInvalid(passwordConfirm)) {
+    if (isPwConfirmInvalid(passwordConfirm, signUpPassword)) {
       invalid = true
     }
   }
