@@ -20,7 +20,8 @@ const errorMsg = {
   oldPwRequired: 'Old Password: required',
   newPwRequired: 'New Password: required',
   newPwIsSame: 'New Password: must be different',
-  oldPwInvalid: 'Old Password: invalid value'
+  oldPwInvalid: 'Old Password: invalid value',
+  noteTitleRequired: 'Note Title: required'
 }
 const setFieldError = function (input, error) {
   $(input).parent().addClass('has-error')
@@ -30,6 +31,14 @@ const setFieldError = function (input, error) {
   console.log('parent: ', $(input).parent())
   console.log('find glyph: ', $(input).parent().find('.glyphicon'))
   console.log('helptext: ', $(input).parent().find('.help-block'))
+}
+const setNoteFieldError = function (formGroup, error) {
+  $(formGroup).addClass('has-error')
+  $(formGroup).find('.glyphicon').addClass('glyphicon-remove')
+  $(formGroup).find('.help-block').text(error)
+  console.log('setNoteFieldError formGroup: ', formGroup)
+  console.log('find glyph: ', $(formGroup).find('.glyphicon'))
+  console.log('helptext: ', $(formGroup).find('.help-block'))
 }
 const isFieldEmpty = function (field) {
   if ($(field).val() === undefined || $(field).val().trim() === '') {
@@ -275,9 +284,23 @@ const onDestroyNote = function () {
 const setCheckbox = function () {
   $('input[type="checkbox"]').val($('input[type="checkbox"]').prop('checked'))
 }
+
+const isNoteInvalid = function (noteForm) {
+  console.log('I am in isNoteInvalid')
+  const noteTitle = $(noteForm).find('.note-title').get()
+  const formGroup = $(noteForm).find('.form-group-note-title')
+
+  if (isFieldEmpty(noteTitle)) {
+    setNoteFieldError(formGroup, errorMsg.noteTitleRequired)
+    return true
+  }
+}
 const onCreateNote = function (event) {
   event.preventDefault()
-  console.log('I am in onCreateNote')
+  console.log('I am in onCreateNote this: ', this)
+  if (isNoteInvalid(this)) {
+    return
+  }
   // set the value of favorite so that the function getFormFields can parse it correctly
   setCheckbox()
   const data = getFormFields(this)
